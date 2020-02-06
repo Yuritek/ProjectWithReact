@@ -1,4 +1,6 @@
-﻿namespace SampleReact.Models
+﻿using AutoMapper;
+
+namespace SampleReact.Models
 {
 	public class ContactsViewModel
 	{
@@ -12,9 +14,6 @@
 
 		public string CodeEx { get; set; }
 
-		public string FullName
-		{
-			get { return $"{Surname} {Name} {Patronymic}"; }
-		}
+		public string FullName => $"{Surname} {Name} {Patronymic}";
 	}
 }

@@ -8,7 +8,7 @@ namespace SampleReact.Core.Repository
 {
 	public interface IGenericRepository<TEntity> where TEntity : class, new()
 	{
-		IQueryable<TEntity> Entities { get; }
+		IQueryable<TEntity> Table { get; }
 		void Add(TEntity entity);
 		void Delete(int entity);
 		void Clear();

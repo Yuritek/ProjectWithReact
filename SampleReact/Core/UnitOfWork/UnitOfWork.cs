@@ -5,26 +5,25 @@ using SampleReact.Models;
 
 namespace SampleReact.Core.UnitOfWork
 {
-	public class UnitOfWorkDirectoryContext : IUnitOfWorkDirectoryContext, IDisposable
+	public class UnitOfWork : IUnitOfWorkDirectoryContext, IDisposable
 	{
 		private readonly DbContext _directoryContext;
 		private GenericGenericRepository<Contacts> _directoryGenericRepository;
-		public UnitOfWorkDirectoryContext()
+		public UnitOfWork(DbContext context)
+		{
+			_directoryContext = context;
+		}
+		public UnitOfWork()
 		{
 			_directoryContext = new DirectoryContext();
 		}
-		public IGenericRepository<Contacts> ContactsGenericRepository
+	   public IGenericRepository<Contacts> ContactsGenericRepository
 	   {
 			get
 			{
 				return _directoryGenericRepository = _directoryGenericRepository ?? new GenericGenericRepository<Contacts>(_directoryContext);
 			}
 		}
-		public void Commit()
-		{
-			_directoryContext.SaveChanges();
-		}
-
 		#region IDisposable
 
 		private bool _disposed;

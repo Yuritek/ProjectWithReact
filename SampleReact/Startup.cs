@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SampleReact.Core.UnitOfWork;
+using SampleReact.Models;
 using SampleReact.Service;
 
 namespace SampleReact
@@ -26,7 +27,7 @@ namespace SampleReact
 			IMapper mapper = mappingConfig.CreateMapper();
 			services.AddSingleton(mapper);
 
-			services.AddTransient<IUnitOfWorkDirectoryContext, UnitOfWorkDirectoryContext>();
+			services.AddTransient<IUnitOfWorkDirectoryContext, UnitOfWork>();
 			services.AddMvc();
 		}
 

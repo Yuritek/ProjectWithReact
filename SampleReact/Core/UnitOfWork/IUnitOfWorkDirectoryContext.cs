@@ -6,6 +6,5 @@ namespace SampleReact.Core.UnitOfWork
     public interface IUnitOfWorkDirectoryContext
     {
 	   IGenericRepository<Contacts> ContactsGenericRepository { get; }
-	    void Commit();
     }
 }

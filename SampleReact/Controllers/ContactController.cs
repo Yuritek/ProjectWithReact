@@ -13,7 +13,7 @@ namespace SampleReact.Controllers
 		private readonly IMapper _mapper;
 		private readonly IUnitOfWorkDirectoryContext _directoryContext;
 
-	   public ContactController(IMapper mapper, IUnitOfWorkDirectoryContext directoryContext)
+		public ContactController(IMapper mapper, IUnitOfWorkDirectoryContext directoryContext)
 		{
 			_mapper = mapper;
 			_directoryContext = directoryContext;
@@ -23,7 +23,7 @@ namespace SampleReact.Controllers
 		[Route("api/Contact/Index")]
 		public async Task<IEnumerable<ContactsViewModel>> Index()
 		{
-			var user = await _directoryContext.ContactsGenericRepository.Entities.ToListAsync();
+			var user = await _directoryContext.ContactsGenericRepository.Table.ToListAsync();
 			return _mapper.Map<IEnumerable<Contacts>, List<ContactsViewModel>>(user);
 		}
 
@@ -32,7 +32,6 @@ namespace SampleReact.Controllers
 		public int Create(Contacts employee)
 		{
 			_directoryContext.ContactsGenericRepository.Add(employee);
-			_directoryContext.Commit();
 			return employee.Code;
 		}
 
@@ -42,8 +41,8 @@ namespace SampleReact.Controllers
 		{
 			return await _directoryContext
 				.ContactsGenericRepository
-				.Entities
-				.FirstOrDefaultAsync(contacts => contacts.Code==id);
+				.Table
+				.FirstOrDefaultAsync(contacts => contacts.Code == id);
 		}
 
 		[HttpPut]
@@ -51,8 +50,7 @@ namespace SampleReact.Controllers
 		public int Edit(Contacts employee)
 		{
 			_directoryContext.ContactsGenericRepository.Update(employee);
-			_directoryContext.Commit();
-		  return employee.Code;
+			return employee.Code;
 		}
 
 		[HttpDelete]
@@ -60,8 +58,7 @@ namespace SampleReact.Controllers
 		public int Delete(int id)
 		{
 			_directoryContext.ContactsGenericRepository.Delete(id);
-			_directoryContext.Commit();
-		  return id;
-	   }
+			return id;
+		}
 	}
 }
