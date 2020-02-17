@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SampleReact.Core.UnitOfWork;
+using ProjectWithReact.DAL.Entities;
+using ProjectWithReact.DAL.Interface;
 using SampleReact.Models;
 
 namespace SampleReact.Controllers
@@ -11,9 +12,15 @@ namespace SampleReact.Controllers
 	public class ContactController : Controller
 	{
 		private readonly IMapper _mapper;
-		private readonly IUnitOfWorkDirectoryContext _directoryContext;
 
-		public ContactController(IMapper mapper, IUnitOfWorkDirectoryContext directoryContext)
+		private readonly IUnitOfWork _directoryContext;
+
+		private IRepository<Contacts> _repo
+		{
+			get { return _directoryContext.GetRepository<Contacts>(); }
+		}
+
+		public ContactController(IMapper mapper, IUnitOfWork directoryContext)
 		{
 			_mapper = mapper;
 			_directoryContext = directoryContext;
@@ -23,7 +30,7 @@ namespace SampleReact.Controllers
 		[Route("api/Contact/Index")]
 		public async Task<IEnumerable<ContactsViewModel>> Index()
 		{
-			var user = await _directoryContext.ContactsGenericRepository.Table.ToListAsync();
+			var user = await _repo.Get();
 			return _mapper.Map<IEnumerable<Contacts>, List<ContactsViewModel>>(user);
 		}
 
@@ -31,25 +38,26 @@ namespace SampleReact.Controllers
 		[Route("api/Contact/Create")]
 		public int Create(Contacts employee)
 		{
-			_directoryContext.ContactsGenericRepository.Add(employee);
-			return employee.Code;
+			_repo.Add(employee);
+			_directoryContext.Commit();
+		  return employee.Code;
 		}
 
 		[HttpGet]
 		[Route("api/Contact/Details/{id}")]
 		public async Task<Contacts> Details(int id)
 		{
-			return await _directoryContext
-				.ContactsGenericRepository
-				.Table
-				.FirstOrDefaultAsync(contacts => contacts.Code == id);
+			var result = await _repo
+				.Get(contacts => contacts.Code == id, 1);
+			return result.FirstOrDefault();
 		}
 
 		[HttpPut]
 		[Route("api/Contact/Edit")]
 		public int Edit(Contacts employee)
 		{
-			_directoryContext.ContactsGenericRepository.Update(employee);
+			_repo.Update(employee);
+			_directoryContext.Commit();
 			return employee.Code;
 		}
 
@@ -57,8 +65,9 @@ namespace SampleReact.Controllers
 		[Route("api/Contact/Delete/{id}")]
 		public int Delete(int id)
 		{
-			_directoryContext.ContactsGenericRepository.Delete(id);
-			return id;
+			_repo.Delete(id);
+			_directoryContext.Commit();
+		  return id;
 		}
 	}
 }

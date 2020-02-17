@@ -25,7 +25,16 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="Core\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="Core\**" />
+    <EmbeddedResource Remove="Core\**" />
+    <None Remove="Core\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Contacts.cs" />
+    <Compile Remove="Models\DirectoryContext.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +49,10 @@
 
   <ItemGroup>
     <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectWithReact.DAL\ProjectWithReact.DAL.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleReact", "SampleReact\SampleReact.csproj", "{ACAF5258-2054-4251-8363-D16DF159F47E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleReact", "SampleReact\SampleReact.csproj", "{ACAF5258-2054-4251-8363-D16DF159F47E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06508524-4DE6-4703-8E16-A0674018E606} = {06508524-4DE6-4703-8E16-A0674018E606}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectWithReact.DAL", "ProjectWithReact.DAL\ProjectWithReact.DAL.csproj", "{06508524-4DE6-4703-8E16-A0674018E606}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{ACAF5258-2054-4251-8363-D16DF159F47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAF5258-2054-4251-8363-D16DF159F47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAF5258-2054-4251-8363-D16DF159F47E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06508524-4DE6-4703-8E16-A0674018E606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06508524-4DE6-4703-8E16-A0674018E606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06508524-4DE6-4703-8E16-A0674018E606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06508524-4DE6-4703-8E16-A0674018E606}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,27 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjectWithReact.DAL.Entities;
 
-namespace SampleReact.Models
+namespace ProjectWithReact.DAL.EF
 {
-    public partial class DirectoryContext : DbContext
+    public sealed partial class DirectoryContext : DbContext
     {
-	   //public DirectoryContext()
-	   //{
-	   //}
-
-	   public DirectoryContext(DbContextOptions options)
+	    public DirectoryContext(DbContextOptions options)
             : base(options)
         {
         }
 
-        public virtual DbSet<Contacts> Contacts { get; set; }
-
-	   //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	   //{
-		  //if (!optionsBuilder.IsConfigured)
-		  //{
-			 //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Directory;Username=postgres;Password=postgres");
-		  //}
-	   //}
+        public DbSet<Contacts> Contacts { get; set; }
 
 	   protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

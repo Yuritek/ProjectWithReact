@@ -9,15 +9,11 @@ namespace SampleReact.Core.UnitOfWork
 	{
 		private readonly DbContext _directoryContext;
 		private GenericGenericRepository<Contacts> _directoryGenericRepository;
-		public UnitOfWork(DbContext context)
+		public UnitOfWork(DirectoryContext context)
 		{
 			_directoryContext = context;
 		}
-		public UnitOfWork()
-		{
-			_directoryContext = new DirectoryContext();
-		}
-	   public IGenericRepository<Contacts> ContactsGenericRepository
+		public IGenericRepository<Contacts> ContactsGenericRepository
 	   {
 			get
 			{

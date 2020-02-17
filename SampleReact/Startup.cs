@@ -2,10 +2,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SampleReact.Core.UnitOfWork;
-using SampleReact.Models;
+using ProjectWithReact.DAL.EF;
+using ProjectWithReact.DAL.Entities;
+using ProjectWithReact.DAL.Interface;
+using ProjectWithReact.DAL.Repositories;
 using SampleReact.Service;
 
 namespace SampleReact
@@ -27,7 +30,13 @@ namespace SampleReact
 			IMapper mapper = mappingConfig.CreateMapper();
 			services.AddSingleton(mapper);
 
-			services.AddTransient<IUnitOfWorkDirectoryContext, UnitOfWork>();
+			services.AddDbContext<DirectoryContext>(options =>
+				options.UseNpgsql(Configuration.GetConnectionString("PG")));
+
+
+			services.AddTransient<IUnitOfWork, UnitOfWork>();
+			services.AddTransient<DbContext, DirectoryContext>();
+			services.AddTransient<IRepository<Contacts>, Repository<Contacts>>();
 			services.AddMvc();
 		}
 

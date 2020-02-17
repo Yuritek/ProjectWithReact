@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProjectWithReact.DAL.Entities;
 using SampleReact.Models;
 
 namespace SampleReact.Service
